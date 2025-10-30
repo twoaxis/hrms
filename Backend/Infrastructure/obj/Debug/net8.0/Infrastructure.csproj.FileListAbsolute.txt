@@ -1,0 +1,12 @@
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\bin\Debug\net8.0\Infrastructure.deps.json
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\bin\Debug\net8.0\Infrastructure.dll
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\bin\Debug\net8.0\Infrastructure.pdb
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfo.cs
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\Infrastructure.dll
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
+C:\Users\SMART\Desktop\HRMS\Backend\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
