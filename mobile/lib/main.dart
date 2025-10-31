@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hrms/view/onboarding/login/screen/login_page.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -16,8 +18,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'HRMS',
-      theme: ThemeData(),
-      home: const Scaffold(body: Center(child: Text('Hello, HRMS!'))),
+      theme: ThemeData(primarySwatch: Colors.blue),
+
+      home: const LoginPage(),
     );
   }
 }
