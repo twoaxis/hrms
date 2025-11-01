@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hrms/theme/color_scheme.dart';
-import 'package:hrms/view/onboarding/login/screen/login_page.dart';
+import 'package:hrms/view/onboarding/screen/login_page.dart';
 
 import 'firebase_options.dart';
 
