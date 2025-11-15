@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure
 {
-    public class JwrProvider(string secret) : IJwtProvider
+    public class JwtProvider(string secret) : IJwtProvider
     {
        private readonly string _secret = secret;
 

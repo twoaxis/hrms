@@ -28,8 +28,9 @@ namespace Domain.Entites
         public Role Role { get;set; } 
         [Required]
         public string PasswordHash { get;private set; } = null!;
-        public User(string name, string email, string department, Role role, string passwordHash)
+        public User(string id ,string name, string email, string department, Role role, string passwordHash)
         {
+            Id = id;
             Name = name;
             Email = email;
             Department = department;
