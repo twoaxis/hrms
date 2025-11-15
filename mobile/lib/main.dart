@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hrms/core/locator.dart';
 import 'package:hrms/theme/color_scheme.dart';
+import 'package:hrms/view/app/base_url_screen.dart';
 import 'package:hrms/view/onboarding/screen/login_page.dart';
 import 'firebase_options.dart';
 
@@ -21,7 +22,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'HRMS',
       theme: ThemeData(colorScheme: colorScheme),
-      home: const LoginPage(),
+      home: BaseurlScreen(),
     );
   }
 }

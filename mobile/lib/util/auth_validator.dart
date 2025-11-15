@@ -27,4 +27,22 @@ class AuthValidators {
     }
     return null;
   }
+
+  static String? baseUrlValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "URL is required.";
+    }
+
+    final url = value.trim();
+
+    final urlRegExp = RegExp(
+      r'^(https?://)([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})(/.*)?$',
+    );
+
+    if (!urlRegExp.hasMatch(url)) {
+      return "Please enter a valid base URL (e.g. https://example.com).";
+    }
+
+    return null;
+  }
 }
