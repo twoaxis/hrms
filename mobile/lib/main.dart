@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hrms/core/locator.dart';
+import 'package:hrms/theme/color_scheme.dart';
+import 'package:hrms/view/onboarding/screen/login_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  setupLocator();
   runApp(const App());
 }
 
@@ -16,8 +20,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'HRMS',
-      theme: ThemeData(),
-      home: const Scaffold(body: Center(child: Text('Hello, HRMS!'))),
+      theme: ThemeData(colorScheme: colorScheme),
+      home: const LoginPage(),
     );
   }
 }
