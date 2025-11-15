@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hrms/core/locator.dart';
 import 'package:hrms/theme/color_scheme.dart';
 import 'package:hrms/util/auth_validator.dart';
 import 'package:hrms/values/spaces.dart';
 import 'package:hrms/view/onboarding/widget/custom_text_form_field.dart';
 import 'package:hrms/view/onboarding/widget/exception_container.dart';
+import 'package:hrms/view_model/login_view_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +18,9 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final loginViewModel = locator<LoginViewModel>();
+
   bool emailSubmitted = false;
   bool passwordSubmitted = false;
   String? errorException;
@@ -27,34 +32,53 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void login() {
+  Future<void> login() async {
     setState(() {
       emailSubmitted = true;
       passwordSubmitted = true;
       errorException = null;
     });
+
     if (!formKey.currentState!.validate()) return;
+
+    setState(() => loginViewModel.isLoading = true);
+
+    final response = await loginViewModel.login(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    );
+
+    setState(() {
+      loginViewModel.isLoading = false;
+      errorException = loginViewModel.errorMessage;
+    });
+
+    if (response != null) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login successful: ${response.accessToken}')),
+      );
+    }
   }
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     emailController.addListener(() {
       if (emailSubmitted) {
         emailSubmitted = false;
         formKey.currentState?.validate();
       }
-
       if (errorException != null) {
         setState(() => errorException = null);
       }
     });
+
     passwordController.addListener(() {
       if (passwordSubmitted) {
         passwordSubmitted = false;
         formKey.currentState?.validate();
       }
-
       if (errorException != null) {
         setState(() => errorException = null);
       }
@@ -146,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(fullscreenSpacing),
         child: ElevatedButton(
-          onPressed: login,
+          onPressed: loginViewModel.isLoading ? null : login,
           style: ElevatedButton.styleFrom(
             backgroundColor: colorScheme.onPrimary,
             foregroundColor: colorScheme.surface,
@@ -155,10 +179,12 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: const Text(
-            'Sign In',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
+          child: loginViewModel.isLoading
+              ? const CircularProgressIndicator(color: Colors.white)
+              : const Text(
+                  'Sign In',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
         ),
       ),
     );
