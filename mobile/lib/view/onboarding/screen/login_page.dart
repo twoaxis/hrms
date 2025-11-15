@@ -3,6 +3,7 @@ import 'package:hrms/core/locator.dart';
 import 'package:hrms/theme/color_scheme.dart';
 import 'package:hrms/util/auth_validator.dart';
 import 'package:hrms/values/spaces.dart';
+import 'package:hrms/view/common/primary_button.dart';
 import 'package:hrms/view/onboarding/widget/custom_text_form_field.dart';
 import 'package:hrms/view/onboarding/widget/exception_container.dart';
 import 'package:hrms/view_model/login_view_model.dart';
@@ -95,96 +96,66 @@ class _LoginPageState extends State<LoginPage> {
         child: SafeArea(
           child: Form(
             key: formKey,
-            child: SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight:
-                      MediaQuery.of(context).size.height -
-                      (kToolbarHeight + fullscreenSpacing * 2),
+            child: Column(
+              children: [
+                const SizedBox(height: 50),
+                Icon(
+                  Icons.lock_outline,
+                  size: 80,
+                  color: colorScheme.onPrimary,
                 ),
-                child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 50),
-                      Icon(
-                        Icons.lock_outline,
-                        size: 80,
-                        color: colorScheme.onPrimary,
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: colorScheme.onPrimary,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Sign in to continue',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: colorScheme.surfaceContainer,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 48),
-                      CustomTextFormField(
-                        controller: emailController,
-                        labelText: 'E-mail:',
-                        hintText: 'John@gmail.com',
-                        textInputAction: TextInputAction.next,
-                        validator: (input) => AuthValidators.emailValidators(
-                          input,
-                          emailSubmitted,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      CustomTextFormField(
-                        isPasswordField: true,
-                        controller: passwordController,
-                        labelText: 'Password:',
-                        textInputAction: TextInputAction.done,
-                        hintText: '•••••••••••',
-                        validator: (input) => AuthValidators.passwordValidators(
-                          input,
-                          passwordSubmitted,
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      if (errorException != null)
-                        ExceptionContainer(loginException: errorException!),
-                      const Spacer(),
-                    ],
+                const SizedBox(height: 10),
+                Text(
+                  'Welcome Back',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.onPrimary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Sign in to continue',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: colorScheme.surfaceContainer,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 48),
+                CustomTextFormField(
+                  controller: emailController,
+                  labelText: 'E-mail:',
+                  hintText: 'John@gmail.com',
+                  textInputAction: TextInputAction.next,
+                  validator: (input) =>
+                      AuthValidators.emailValidators(input, emailSubmitted),
+                ),
+                const SizedBox(height: 16),
+                CustomTextFormField(
+                  isPasswordField: true,
+                  controller: passwordController,
+                  labelText: 'Password:',
+                  textInputAction: TextInputAction.done,
+                  hintText: '•••••••••••',
+                  validator: (input) => AuthValidators.passwordValidators(
+                    input,
+                    passwordSubmitted,
                   ),
                 ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(fullscreenSpacing),
-        child: ElevatedButton(
-          onPressed: loginViewModel.isLoading ? null : login,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colorScheme.onPrimary,
-            foregroundColor: colorScheme.surface,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          child: loginViewModel.isLoading
-              ? const CircularProgressIndicator(color: Colors.white)
-              : const Text(
-                  'Sign In',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                const SizedBox(height: 24),
+                if (errorException != null)
+                  ExceptionContainer(loginException: errorException!),
+                const Spacer(),
+                PrimaryButton(
+                  text: loginViewModel.isLoading ? "Logging in..." : "Login",
+                  onPressed: loginViewModel.isLoading ? null : login,
                 ),
+              ],
+            ),
+          ),
         ),
       ),
     );
