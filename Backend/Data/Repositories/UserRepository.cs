@@ -13,10 +13,10 @@ namespace Data.Repositories
     public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
     {
        private readonly ApplicationDbContext _dbContext = dbContext;
-        public Task CreateUser(string Id, string name, string email, string passwordHash, string department, Role role)
+        public Task CreateUser(string Id, string name, string email, string passwordHash, string department)
         {
             
-            _dbContext.Users.Add(new User(Id ,name, email, department, role, passwordHash));
+            _dbContext.Users.Add(new User(Id ,name, email, department, passwordHash));
             return _dbContext.SaveChangesAsync();   
         }
 

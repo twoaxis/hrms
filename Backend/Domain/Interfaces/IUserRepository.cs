@@ -9,7 +9,7 @@ namespace Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task CreateUser(string Id, string name, string email, string passwordHash, string department, Role role);
+        Task CreateUser(string Id, string name, string email, string passwordHash, string department);
         Task <User?> GetUserByEmail(string email);
 
 

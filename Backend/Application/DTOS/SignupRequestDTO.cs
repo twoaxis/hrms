@@ -12,17 +12,17 @@ namespace Application.DTOS
     {
         [Required]
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         [Required]
         [JsonPropertyName("email")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
         [Required]
         [JsonPropertyName("password")]
         [MinLength(8)]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
         [Required]
         [JsonPropertyName("department")]
-        public string Department { get; set; }
+        public string Department { get; set; } = string.Empty;
     }
 }

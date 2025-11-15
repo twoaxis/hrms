@@ -8,6 +8,6 @@ namespace Domain.Interfaces
 {
     public interface IJwtProvider
     {
-        string GenerateToken(string userId,string name,string email ,string department ,Role userRole);
+        string GenerateToken(string userId,string name,string email ,string department );
     }
 }

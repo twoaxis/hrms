@@ -14,6 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+
+
 builder.Services.AddScoped<IJwtProvider>(provider =>
 {
     var secret = builder.Configuration["JWT:Secret"]!;

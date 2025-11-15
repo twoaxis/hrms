@@ -1,5 +1,6 @@
 ﻿using Application.DTOS;
 using Application.Services;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,12 +25,31 @@ namespace API.Controllers
                 var response = await _authenticationService.SignUp(request.Name, request.Email, request.Password, request.Department);
                 return Ok(response);
             }
-            catch (Domain.Exceptions.UserExistsException)
+            catch (UserExistsException)
             {
                 return Conflict(new { message = "User with this email already exists." });
             }
 
             
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _authenticationService.Login(request.Email, request.Password);
+                return Ok(response);
+            }
+            catch (InvalidCredentialsException)
+            {
+                return Unauthorized(new { message = "Invalid email or password." });
+            }
+        }
+
     }
 }

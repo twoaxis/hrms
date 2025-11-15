@@ -16,7 +16,7 @@ namespace Infrastructure
        private readonly string _secret = secret;
 
 
-        public string GenerateToken(string userId, string name, string email, string department, Role userRole)
+        public string GenerateToken(string userId, string name, string email, string department)
         {
 
             var claims = new List<Claim>
@@ -25,7 +25,7 @@ namespace Infrastructure
                 new(JwtRegisteredClaimNames.Name, name),
                 new(JwtRegisteredClaimNames.Email, email),
                 new("department", department),
-                new("role", userRole.ToString())
+               
 
             };
 

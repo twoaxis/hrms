@@ -13,7 +13,7 @@ namespace Domain.Entites
 
         public DateTime ExpiresAt = DateTime.UtcNow.AddDays(7);
         public User User { get; set; } = null!;
-        public RefreshToken() { }
+        
         public RefreshToken(string token, string userId ,DateTime expiresAt)
         {
             Token = token;

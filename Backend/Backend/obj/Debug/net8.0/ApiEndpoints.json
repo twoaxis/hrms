@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "API.Controllers.AuthenticationController",
+    "Method": "Login",
+    "RelativePath": "api/Authentication/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Application.DTOS.LoginRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AuthenticationController",
     "Method": "SignUp",
     "RelativePath": "api/Authentication/signup",
     "HttpMethod": "POST",

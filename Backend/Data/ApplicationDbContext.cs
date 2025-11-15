@@ -34,7 +34,7 @@ namespace Data
                 option.Property(u => u.Email).IsRequired().HasMaxLength(120);
                 option.Property(u => u.Department).IsRequired();
                 option.Property(u => u.PasswordHash).IsRequired();
-                option.Property(u => u.Role).IsRequired().HasConversion<string>();
+               
 
             });
 
@@ -46,8 +46,8 @@ namespace Data
                 option.Property(rt => rt.ExpiresAt).IsRequired();
                 option.HasOne(rt => rt.User)
                       .WithMany()
-                      .HasForeignKey(rt => rt.UserId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                      .HasForeignKey(rt => rt.UserId);
+                      
 
             });
                
