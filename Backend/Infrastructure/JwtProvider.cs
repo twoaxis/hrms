@@ -33,8 +33,8 @@ namespace Infrastructure
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "hrms.twoaxis.org",
-			    audience: "hrms.twoaxis.org",
+                issuer: Environment.GetEnvironmentVariable("ISSUER"),
+			    audience: Environment.GetEnvironmentVariable("AUDIENCE"),
                 claims: claims,
                 expires: DateTime.UtcNow.AddHours(1),
                 signingCredentials: creds

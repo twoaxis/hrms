@@ -11,6 +11,7 @@ namespace Domain.Interfaces
     {
         Task CreateUser(string Id, string name, string email, string passwordHash, string department);
         Task <User?> GetUserByEmail(string email);
+        Task<User?> GetUserById(string id);
 
 
     }

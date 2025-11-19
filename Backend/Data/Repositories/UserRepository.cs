@@ -26,5 +26,9 @@ namespace Data.Repositories
             return _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
 
         }
+        public Task<User?> GetUserById(string id)
+        {
+            return _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
     }
 }

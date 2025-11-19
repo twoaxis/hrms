@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("auth")]
     [ApiController]
     public class AuthenticationController(AuthenticationService authenticationService) : ControllerBase
     {
@@ -27,7 +27,7 @@ namespace API.Controllers
             }
             catch (UserExistsException)
             {
-                return Conflict(new { message = "User with this email already exists." });
+                return Conflict();
             }
 
             
@@ -47,7 +47,25 @@ namespace API.Controllers
             }
             catch (InvalidCredentialsException)
             {
-                return Unauthorized(new { message = "Invalid email or password." });
+                return Unauthorized();
+            }
+        }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequestDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _authenticationService.RefreshToken(request.RefreshToken);
+                return Ok(response);
+            }
+            catch (InvalidRefreshTokenException)
+            {
+                return Unauthorized();
             }
         }
 

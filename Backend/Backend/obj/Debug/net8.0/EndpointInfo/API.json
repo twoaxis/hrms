@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Authentication/signup": {
+    "/auth/signup": {
       "post": {
         "tags": [
           "Authentication"
@@ -36,7 +36,7 @@
         }
       }
     },
-    "/api/Authentication/login": {
+    "/auth/login": {
       "post": {
         "tags": [
           "Authentication"
@@ -66,6 +66,37 @@
           }
         }
       }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -84,6 +115,19 @@
           },
           "password": {
             "minLength": 8,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefreshTokenRequestDTO": {
+        "required": [
+          "refresh_token"
+        ],
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "minLength": 1,
             "type": "string"
           }
         },

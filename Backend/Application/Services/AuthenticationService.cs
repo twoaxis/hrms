@@ -31,10 +31,10 @@ namespace Application.Services
             await _userRepository.CreateUser(userId, name, email, passwordHash, department);
             await _refreshTokenRepository.CreateRefreshToken(refreshToken, userId, DateTime.UtcNow.AddDays(7));
 
-            var token = _jwtProvider.GenerateToken(userId, name, email,department);
+            var accesstoken = _jwtProvider.GenerateToken(userId, name, email,department);
             return new AuthResponseDTO { 
 
-                AccessToken = token,
+                AccessToken = accesstoken,
                 RefreshToken = refreshToken
             };
         }
@@ -50,13 +50,45 @@ namespace Application.Services
             var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
             await  _refreshTokenRepository.CreateRefreshToken( refreshToken, user.Id, DateTime.UtcNow.AddDays(7));
 
-            var token = _jwtProvider.GenerateToken(user.Id, user.Name, user.Email, user.Department);
+            var accesstoken = _jwtProvider.GenerateToken(user.Id, user.Name, user.Email, user.Department);
             return new AuthResponseDTO { 
 
-                AccessToken = token,
+                AccessToken = accesstoken,
                 RefreshToken = refreshToken
             };
 
+        }
+
+        public async Task<AuthResponseDTO> RefreshToken(string refreshToken)
+        {
+            var existingToken = await _refreshTokenRepository.GetRefreshToken(refreshToken);
+            if (existingToken == null)
+            {
+                throw new InvalidRefreshTokenException();
+            }
+
+            if (existingToken.ExpiresAt < DateTime.UtcNow)
+            {
+                await _refreshTokenRepository.DeleteRefreshToken(refreshToken);
+                throw new InvalidRefreshTokenException();
+            }
+
+            var user = await _userRepository.GetUserById(existingToken.UserId);
+            if (user == null)
+            {
+                await _refreshTokenRepository.DeleteRefreshToken(refreshToken);
+                throw new InvalidRefreshTokenException();
+            }
+
+            var newRefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            await _refreshTokenRepository.CreateRefreshToken(newRefreshToken, user.Id, DateTime.UtcNow.AddDays(7));
+            var accesstoken = _jwtProvider.GenerateToken(user.Id, user.Name, user.Email, user.Department);
+
+            return new AuthResponseDTO
+            {
+                AccessToken = accesstoken,
+                RefreshToken = newRefreshToken
+            };
         }
     }
 }

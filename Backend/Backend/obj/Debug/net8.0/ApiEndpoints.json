@@ -2,7 +2,7 @@
   {
     "ContainingType": "API.Controllers.AuthenticationController",
     "Method": "Login",
-    "RelativePath": "api/Authentication/login",
+    "RelativePath": "auth/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -17,8 +17,24 @@
   },
   {
     "ContainingType": "API.Controllers.AuthenticationController",
+    "Method": "RefreshToken",
+    "RelativePath": "auth/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Application.DTOS.RefreshTokenRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AuthenticationController",
     "Method": "SignUp",
-    "RelativePath": "api/Authentication/signup",
+    "RelativePath": "auth/signup",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
